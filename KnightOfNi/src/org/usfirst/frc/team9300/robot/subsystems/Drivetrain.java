@@ -1,11 +1,16 @@
 package org.usfirst.frc.team9300.robot.subsystems;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 import org.usfirst.frc4048.swerve.drive.SwerveDrive;
+import org.usfirst.frc4048.swerve.math.CentricMode;
 import org.usfirst.frc.team9300.robot.RobotMap;
 import org.usfirst.frc4048.swerve.drive.BaseEnclosure;
 import org.usfirst.frc4048.swerve.drive.CanTalonSwerveEnclosure;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 
 /*            --- LAYOUT ---
 *
@@ -49,17 +54,38 @@ public class Drivetrain extends Subsystem {
 	private WPI_TalonSRX steerMotor3;
 	private WPI_TalonSRX steerMotor4;
 	
+	private Gyro gyro = new ADXRS450_Gyro();
+	
 	public Drivetrain() {
+		
 	}
 	
 	public void init() {
-
+		driveMotor1 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_DRIVE_1);
+		driveMotor2 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_DRIVE_2);
+		driveMotor3 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_DRIVE_3);
+		driveMotor4 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_DRIVE_4);
+		
+		steerMotor1 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_STEER_1);
+		steerMotor2 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_STEER_2);
+		steerMotor3 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_STEER_3);
+		steerMotor4 = new WPI_TalonSRX(RobotMap.DRIVETRAIN_STEER_4);
+		
 		swerveEnclosure1 = new CanTalonSwerveEnclosure("enc 1", driveMotor1, steerMotor1, GEAR_RATIO);
 		swerveEnclosure2 = new CanTalonSwerveEnclosure("enc 2", driveMotor2, steerMotor2, GEAR_RATIO);
 		swerveEnclosure3 = new CanTalonSwerveEnclosure("enc 3", driveMotor3, steerMotor3, GEAR_RATIO);
 		swerveEnclosure4 = new CanTalonSwerveEnclosure("enc 4", driveMotor4, steerMotor4, GEAR_RATIO);
 
 		swerveDrive = new SwerveDrive(swerveEnclosure1, swerveEnclosure2, swerveEnclosure3, swerveEnclosure4, W, L);
+		swerveDrive.setCentricMode(CentricMode.ROBOT);
+	}
+	
+	public void drive(double fwd, double strafe, double rotateCW) {
+		swerveDrive.move(fwd, strafe, rotateCW, gyro.getAngle());
+	}
+	
+	public void calibrateGyro() {
+		gyro.calibrate();
 	}
 	
 	public void initDefaultCommand() {
