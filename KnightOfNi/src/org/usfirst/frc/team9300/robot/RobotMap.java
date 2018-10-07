@@ -33,12 +33,13 @@ public class RobotMap {
 	 *          |----- Width -----|
 	 */
 	
-	public static final int DRIVETRAIN_CAN_TALON_1 = 0;
-	public static final int DRIVETRAIN_CAN_TALON_2 = 1;
-	public static final int DRIVETRAIN_CAN_TALON_3 = 2;
-	public static final int DRIVETRAIN_CAN_TALON_4 = 3;
-	public static final int DRIVETRAIN_CAN_TALON_5 = 4;
-	public static final int DRIVETRAIN_CAN_TALON_6 = 5;
-	public static final int DRIVETRAIN_CAN_TALON_7 = 6;
-	public static final int DRIVETRAIN_CAN_TALON_8 = 7;
+	public static final int DRIVETRAIN_DRIVE_1 = 0;
+	public static final int DRIVETRAIN_DRIVE_2 = 1;
+	public static final int DRIVETRAIN_DRIVE_3 = 2;
+	public static final int DRIVETRAIN_DRIVE_4 = 3;
+	
+	public static final int DRIVETRAIN_STEER_1 = 4;
+	public static final int DRIVETRAIN_STEER_2 = 5;
+	public static final int DRIVETRAIN_STEER_3 = 6;
+	public static final int DRIVETRAIN_STEER_4 = 7;
 }
