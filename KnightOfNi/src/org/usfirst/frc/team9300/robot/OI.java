@@ -12,6 +12,37 @@ package org.usfirst.frc.team9300.robot;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+
+	/**
+	 * Adds a deadzone to, for example, a joystick input that does not completely
+	 * zero itself mechanically.
+	 * 
+	 * @param input
+	 *            the input value (any double between -1 and 1, inclusively).
+	 * @param radius
+	 *            how far from zero the input can be for the output to still be
+	 *            zero. This must be greated than 0 and less than 1.
+	 * @return the value after application of the deadzone (between -1 and 1,
+	 *         inclusively).
+	 */
+	public static double deadBand(double input) {
+		double output;
+		double radius = 0.2;
+		double maxOutput = 1;
+		assert (-1 < input && input < 1) : "input is less than -1 or greater than 1";
+		assert (radius < maxOutput) : "deadband radius is greater than or equal to the maximum output";
+		
+		if (input > radius) {
+			output = ((maxOutput * (input - maxOutput)) / (maxOutput - radius)) + maxOutput;
+		} else if (input < -radius) {
+			output = ((maxOutput * (input + maxOutput)) / (maxOutput - radius)) - maxOutput;
+		} else {
+			output = 0;
+		}
+		
+		assert (Math.abs(output) <= maxOutput) : "expected to output a number closer to 0 than " + maxOutput;
+		return output;
+	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
@@ -25,7 +56,7 @@ public class OI {
 	// commands the same as any other Button.
 
 	//// TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
+	// Once you have a button, it's trivial to bind it to a command in one of
 	// three ways:
 
 	// Start the command when the button is pressed and let it run the command
