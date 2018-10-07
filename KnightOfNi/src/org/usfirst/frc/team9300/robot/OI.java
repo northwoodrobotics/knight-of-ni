@@ -7,12 +7,17 @@
 
 package org.usfirst.frc.team9300.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
+	public static final XboxController driveController = new XboxController(0);
+	public static final XboxController cubeController = new XboxController(1);
+	
+	
 	/**
 	 * Adds a deadzone to, for example, a joystick input that does not completely
 	 * zero itself mechanically.
