@@ -10,5 +10,7 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar" sourcepath="/USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix_WPIAPI.jar" sourcepath="/USERLIBS_DIR/CTRE_Phoenix_WPIAPI-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/Swerve-Drive-Library-Java.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix_WPIAPI-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

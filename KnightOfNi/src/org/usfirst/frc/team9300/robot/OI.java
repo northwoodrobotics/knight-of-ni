@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team9300.robot;
 
+import org.usfirst.frc.team9300.robot.commands.ToggleCentricMode;
+
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,9 +18,12 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public class OI {
 	public static final XboxController driveController = new XboxController(0);
+	public static final JoystickButton driveX = new JoystickButton(driveController, 3);
 	public static final XboxController cubeController = new XboxController(1);
 	
-	
+	public OI(Robot robot) {
+		driveX.whenPressed(new ToggleCentricMode(robot.drivetrain, driveController));
+	}
 	/**
 	 * Adds a deadzone to, for example, a joystick input that does not completely
 	 * zero itself mechanically.

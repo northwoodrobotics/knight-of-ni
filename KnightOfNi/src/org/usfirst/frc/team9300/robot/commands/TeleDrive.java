@@ -6,6 +6,7 @@ import org.usfirst.frc.team9300.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -30,9 +31,13 @@ public class TeleDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		fwd = OI.deadBand(controller.getY(Hand.kLeft));
+		fwd = OI.deadBand(-controller.getY(Hand.kLeft));
 		strafe = OI.deadBand(controller.getX(Hand.kLeft));
-		rotateCW = OI.deadBand(controller.getX(Hand.kRight));
+		rotateCW = OI.deadBand(controller.getX(Hand.kRight) * 0.6);
+		
+		SmartDashboard.putNumber("fwd", fwd);
+		SmartDashboard.putNumber("strafe", strafe);
+		SmartDashboard.putNumber("rotateCW", rotateCW);
 		
 		drivetrain.drive(fwd, strafe, rotateCW);
 	}

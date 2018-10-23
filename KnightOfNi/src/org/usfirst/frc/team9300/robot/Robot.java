@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team9300.robot;
 
+import org.usfirst.frc.team9300.robot.commands.ResetDrivetrainEncoders;
+import org.usfirst.frc.team9300.robot.subsystems.Drivetrain;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,6 +25,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	public static OI m_oi;
+	
+	public final Drivetrain drivetrain = new Drivetrain();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -32,10 +37,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
+		m_oi = new OI(this);
+		drivetrain.init();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Autonomous Command to Run:", m_chooser);
+		SmartDashboard.putData("Reset Encoders", new ResetDrivetrainEncoders(drivetrain));
 	}
 
 	/**
@@ -106,5 +113,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+	
+	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putString("Centric Mode: ", drivetrain.getCentricMode().toString() + "-CENTRIC");
 	}
 }
